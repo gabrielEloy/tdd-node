@@ -23,6 +23,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
     "@types/jest": "^26.0.13",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",

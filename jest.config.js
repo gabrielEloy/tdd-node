@@ -2,6 +2,9 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
+  "transform": {
+    ".(js|jsx|ts|tsx)": "@sucrase/jest-plugin"
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
