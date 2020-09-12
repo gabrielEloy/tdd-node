@@ -20,7 +20,7 @@ const makeSut = () => {
 
 describe('Login Router', () => {
     test('Should return 400 if there is no provided email', () => {
-        const { sut }  = makeSut();
+        const { sut } = makeSut();
         const httpRequest = {
             body: {
                 password: '12345678'
@@ -31,7 +31,7 @@ describe('Login Router', () => {
         expect(httpResponse.body).toEqual(new MissingParamError('email'))
     })
     test('Should return 400 if there is no provided password', () => {
-        const { sut }  = makeSut()
+        const { sut } = makeSut()
         const httpRequest = {
             body: {
                 email: 'anymail@icloud.com'
@@ -42,12 +42,12 @@ describe('Login Router', () => {
         expect(httpResponse.body).toEqual(new MissingParamError('password'))
     })
     test('Should return 500 if there is no provided httpRequest', () => {
-        const { sut }  = makeSut()
+        const { sut } = makeSut()
         const httpResponse = sut.route()
         expect(httpResponse.statusCode).toBe(500)
     })
     test('Should return 500 if the httpRequest does not contain a body attribute', () => {
-        const { sut }  = makeSut()
+        const { sut } = makeSut()
         const httpResponse = sut.route({})
         expect(httpResponse.statusCode).toBe(500)
     })
@@ -56,7 +56,7 @@ describe('Login Router', () => {
     // this kind of test (unless you are a pretentious prick)
     // but I might be wrong
     test('Should call AuthUseCaseSpy with correct params', () => {
-        const { sut, authUseCaseSpy }  = makeSut()
+        const { sut, authUseCaseSpy } = makeSut()
         const httpRequest = {
             body: {
                 email: 'anymail@gmail.com',
@@ -66,5 +66,17 @@ describe('Login Router', () => {
         sut.route(httpRequest)
         expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
         expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
+    })
+
+    test('Should return 401 status for invalid credentials', () => {
+        const { sut } = makeSut()
+        const httpRequest = {
+            body: {
+                email: 'anymail@gmail.com',
+                password: '1234556'
+            }
+        }
+        const httpResponse = sut.route(httpRequest)
+        expect(httpResponse.statusCode).toBe(401)
     })
 })
