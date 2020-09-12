@@ -1,4 +1,7 @@
 import LoginRouter from './login-router';
+import MissingParamError from '../helpers/missingParamError';
+
+
 describe('Login Router', () => {
     test('Should return 400 if there is no provided email', () => {
         // sut stands for System Under Test
