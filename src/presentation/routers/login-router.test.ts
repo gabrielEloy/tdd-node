@@ -1,5 +1,6 @@
 import LoginRouter from './login-router';
 import MissingParamError from '../helpers/missingParamError';
+import UnauthorizedError from '../helpers/UnauthorizedError';
 
 
 // sut stands for System Under Test
@@ -78,5 +79,6 @@ describe('Login Router', () => {
         }
         const httpResponse = sut.route(httpRequest)
         expect(httpResponse.statusCode).toBe(401)
+        expect(httpResponse.body).toEqual(new UnauthorizedError())
     })
 })
